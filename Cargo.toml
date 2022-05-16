@@ -1,0 +1,25 @@
+[package]
+name = "rmk_firmware"
+version = "0.1.0"
+edition = "2021"
+#authors = "Lucas Placentino" #deprecated
+description = "RMK - Rust keyboard firmware, based on QMK and KMK"
+documentation = "https://obsilab.github.io/rmk_docs/" #TODO need to change url
+#homepage = "urltowebsite" #TODO need to change url
+readme = "README.md"
+repository = "https://github.com/ObsiLab/rmk_firmware"
+license = "MIT"
+#license-file = "LICENSE"
+keywords = ["keyboard","firmware","qmk","rmk","kmk"]
+categories = ["embedded","hardware-support"] # [...,"no-std"] ?
+
+# prevents from accidentily publishing to crates.io :
+publish = false 
+# ! REMOVE IF PUBLISHING TO crates.io
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+#[badges] # used ?
+#maintenance = ["experimental"] # used ?
+
+[dependencies] 
