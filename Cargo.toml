@@ -23,6 +23,9 @@ publish = false
 # maintenance = ["experimental"] # used ?
 
 [dependencies] 
+
+log = "0.4"
+
 # ?
 cortex-m = "0.7.3"
 cortex-m-rt = ">=0.6.15,<0.8"

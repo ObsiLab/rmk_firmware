@@ -5,6 +5,9 @@
 #![no_main] // see #[entry]
 
 // use :
+
+use log::info;
+
 // The macro for our start-up function
 use cortex_m_rt::entry;
 
@@ -40,10 +43,12 @@ const XTAL_FREQ_HZ: u32 = 12_000_000u32;
 /// The `#[entry]` macro ensures the Cortex-M start-up code calls this function
 /// as soon as all global variables are initialised.
 #[entry]
+//fn main() -> () {
 fn main() -> ! {
+    // right one
     info!("Program start");
 
-	// Grab our singleton objects
+    // Grab our singleton objects
     let mut pac = pac::Peripherals::take().unwrap();
     let core = pac::CorePeripherals::take().unwrap();
 
@@ -51,7 +56,8 @@ fn main() -> ! {
     let mut watchdog = hal::Watchdog::new(pac.WATCHDOG);
 
     // Configure the clocks
-    let _clocks = hal::clocks::init_clocks_and_plls( //? _clocks or just clocks
+    let _clocks = hal::clocks::init_clocks_and_plls(
+        //? _clocks or just clocks
         XTAL_FREQ_HZ,
         pac.XOSC,
         pac.CLOCKS,
@@ -63,12 +69,12 @@ fn main() -> ! {
     .ok()
     .unwrap();
 
-    let mut delay = cortex_m::delay::Delay::new(core.SYST, clocks.system_clock.freq().integer());
+    let mut delay = cortex_m::delay::Delay::new(core.SYST, _clocks.system_clock.freq().integer());
 
     // The single-cycle I/O block controls our GPIO pins
     let sio = hal::Sio::new(pac.SIO);
 
-	// Set the pins to their default state
+    // Set the pins to their default state
     let pins = hal::gpio::Pins::new(
         pac.IO_BANK0,
         pac.PADS_BANK0,
@@ -79,8 +85,7 @@ fn main() -> ! {
     // ...
 
     info!("printing Hello World");
-	//println!("Hello, world!");
-
+    //println!("Hello, world!");
 }
 
 // End of file
