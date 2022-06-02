@@ -4,25 +4,47 @@
 > <details>
 >   <summary>Table Of Contents</summary>
 >
->   - [test](#test)
->     * [ye](#ye)
 >   - [📖 Docs](#-docs)
->   - [®️ License](#%EF%B8%8F-license)
+>     - [Getting started](#getting-started)
+>       - [ye](#ye-)
+>   - [Details](#details)
+>     - [📝 Authors and Contributors](#-authors-and-contributors)
+>       - [Author](#author-)
+>       - [Contributors](#contributors-)
+>     - [🌟 Acknowledgements](#-acknowledgements)
+>     - [®️ License](#%EF%B8%8F-license)
   
 > </details>
 
+# 📖 Docs
+https://obsilab.github.io/rmk_docs/
+
+## Getting started
+### ye :
+WIP
+
+-----------------
+
+# Details
+
+## 📝 Authors and Contributors
+### Author :
+- [Lucas Placentino](https://github.com/LucasPlacentino)
+### Contributors :
+- [Other contributors](graphs/contributors)
+
+## 🌟 Acknowledgements
 ### 💡 Inspired by QMK and KMK.
 
-Based off of:
+### 🧱 Based off of:
 - https://github.com/Innectic/rmk
 - https://github.com/rp-rs/rp-hal
 - https://github.com/TeXitoi/keyberon
 - https://github.com/camrbuss/pinci
 
-## 📖 Docs
-https://obsilab.github.io/rmk_docs/
-
 ## ®️ License
-Licensed under an MIT License
+Licensed under an [MIT License](LICENSE)
 
-> [↑ Go To TOP](#TOP)
+-------------------
+
+> _[↑ Go To TOP](#TOP)_
