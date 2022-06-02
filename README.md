@@ -31,7 +31,7 @@ WIP
 ### Author :
 - [Lucas Placentino](https://github.com/LucasPlacentino)
 ### Contributors :
-- [Other contributors](graphs/contributors)
+- [Other contributors](../../graphs/contributors)
 
 ## 🌟 Acknowledgements
 ### 💡 Inspired by QMK and KMK.
