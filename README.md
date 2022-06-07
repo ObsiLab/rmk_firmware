@@ -1,49 +1,49 @@
 # RMK - a Rust Keyboard Firmware ⌨️
-## _**----- 🏗️ THIS IS A WORK IN PROGRESS 🚧 -----**_
+## _**----- 🏗️ THIS IS A WORK IN PROGRESS 🚧 -----**_  
 
-> <details>
->   <summary>Table Of Contents</summary>
->
+<details>
+  <summary><h2>Table Of Contents 📑</h2></summary>
+ 
 >   - [📖 Docs](#-docs)
 >     - [Getting started](#getting-started)
->       - [ye](#ye-)
->   - [Details](#details)
+>       - [yes](#yes-)
+>   - [🔡 Details](#-details)
 >     - [📝 Authors and Contributors](#-authors-and-contributors)
 >       - [Author](#author-)
 >       - [Contributors](#contributors-)
 >     - [🌟 Acknowledgements](#-acknowledgements)
 >     - [®️ License](#%EF%B8%8F-license)
-  
-> </details>
+ 
+</details>
 
 # 📖 Docs
 https://obsilab.github.io/rmk_docs/
 
 ## Getting started
-### ye :
+### yes :
 WIP
 
 -----------------
 
-# Details
+# 🔡 Details
 
 ## 📝 Authors and Contributors
 ### Author :
 - [Lucas Placentino](https://github.com/LucasPlacentino)
 ### Contributors :
-- [Other contributors](../../graphs/contributors)
+- [List of contributors](../../graphs/contributors)
 
 ## 🌟 Acknowledgements
-### 💡 Inspired by QMK and KMK.
+#### 💡 Inspired by **QMK** and **KMK**.
 
-### 🧱 Based off of:
+#### 🧱 Based off of:
 - https://github.com/Innectic/rmk
 - https://github.com/rp-rs/rp-hal
 - https://github.com/TeXitoi/keyberon
 - https://github.com/camrbuss/pinci
 
 ## ®️ License
-Licensed under an [MIT License](LICENSE)
+Licensed under an [**MIT License**](LICENSE)
 
 -------------------
 
