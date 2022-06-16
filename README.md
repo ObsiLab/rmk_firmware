@@ -39,6 +39,7 @@ WIP
 #### 🧱 Based off of:
 - https://github.com/Innectic/rmk
 - https://github.com/rp-rs/rp-hal
+- https://github.com/dlkj/usbd-human-interface-device
 - https://github.com/TeXitoi/keyberon
 - https://github.com/camrbuss/pinci
 
