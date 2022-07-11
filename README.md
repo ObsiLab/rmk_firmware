@@ -1,3 +1,5 @@
+<img align="left" height="120" src="https://user-images.githubusercontent.com/23436953/178232652-e7b1504c-0425-490a-ab8c-12a58e288097.png">
+
 # RMK - a Rust Keyboard Firmware ⌨️
 ## _**----- 🏗️ THIS IS A WORK IN PROGRESS 🚧 -----**_  
 
