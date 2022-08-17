@@ -19,7 +19,7 @@
 </details>
 
 # 📖 Docs
-https://obsilab.github.io/rmk_docs/
+https://quanta.obsilab.com/
 
 ## Getting started
 ### yes :
