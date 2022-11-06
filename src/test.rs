@@ -7,24 +7,25 @@
 #![no_std] // don't link the Rust standard librar
 #![no_main] // see #[entry] below, from cortex_m_rt::entry
 
-use usbd_human_interface_device::page::Keyboard;
-use usbd_human_interface_device::device::keyboard::{KeyboardLedsReport, NKROBootKeyboardInterface};
-use usbd_human_interface_device::prelude::*;
+use core::convert::Infallible;
 use cortex_m_rt::entry;
 use embedded_hal::digital::v2::*;
 use embedded_hal::prelude::*;
 use embedded_time::duration::Milliseconds;
+use hal::pac;
+use rp2040_hal as hal;
 use usb_device::class_prelude::*;
 use usb_device::prelude::*;
-use core::convert::Infallible;
-use rp2040_hal as hal;
-use hal::pac;
-
+use usbd_human_interface_device::device::keyboard::{
+    KeyboardLedsReport, NKROBootKeyboardInterface,
+};
+use usbd_human_interface_device::page::Keyboard;
+use usbd_human_interface_device::prelude::*;
 
 // ?? ----- :
+use embedded_time::clock::Error;
 use embedded_time::duration::Fraction;
 use embedded_time::Instant;
-use embedded_time::clock::Error;
 pub const SCALING_FACTOR: Fraction = Fraction::new(1, 1_000_000u32);
 use crate::hal::Timer;
 // ? use hal::Timer;
@@ -48,7 +49,6 @@ impl<'a> embedded_time::clock::Clock for TimerClock<'a> {
     }
 }
 // ?? -----
-
 
 const nbkeys: usize = 3;
 const XTAL_FREQ_HZ: u32 = 12_000_000u32;
@@ -93,9 +93,7 @@ fn main() -> ! {
     let usb_alloc = UsbBusAllocator::new(usb_bus);
 
     let mut keyboard = UsbHidClassBuilder::new()
-        .add_interface(
-            NKROBootKeyboardInterface::default_config(&clock),
-        )
+        .add_interface(NKROBootKeyboardInterface::default_config(&clock))
         .build(&usb_alloc);
 
     let mut usb_dev = UsbDeviceBuilder::new(&usb_alloc, UsbVidPid(0x1209, 0x0001))
@@ -104,15 +102,15 @@ fn main() -> ! {
         .serial_number("TEST")
         .build();
 
-    let keys: &[&dyn InputPin<Error = core::convert::Infallible>] = &[ // ! check pins, length must be == nbkeys, maybe autogenerate ?
+    let keys: &[&dyn InputPin<Error = core::convert::Infallible>] = &[
+        // ! check pins, length must be == nbkeys, maybe autogenerate ?
         &pins.gpio1.into_pull_up_input(),
         &pins.gpio2.into_pull_up_input(),
-        &pins.gpio3.into_pull_up_input()
-        //* etc
+        &pins.gpio3.into_pull_up_input(), //* etc
     ];
 
     let mut input_count_down = timer.count_down();
-    input_count_down.start(Milliseconds(1));            // ! check and test 10ms ?
+    input_count_down.start(Milliseconds(1)); // ! check and test 10ms ?
 
     loop {
         if input_count_down.wait().is_ok() {
@@ -146,7 +144,8 @@ fn main() -> ! {
     }
 }
 
-fn key_press(keys: &[&dyn InputPin<Error = Infallible>]) -> [Keyboard; nbkeys] { // ! put keys in a json, toml or something
+fn key_press(keys: &[&dyn InputPin<Error = Infallible>]) -> [Keyboard; nbkeys] {
+    // ! put keys in a json, toml or something
     [
         //arrow UP:
         if keys[0].is_low().unwrap() {
@@ -154,20 +153,18 @@ fn key_press(keys: &[&dyn InputPin<Error = Infallible>]) -> [Keyboard; nbkeys] {
         } else {
             Keyboard::NoEventIndicated
         },
-
         //arrow LEFT:
         if keys[1].is_low().unwrap() {
             Keyboard::LeftArrow
         } else {
             Keyboard::NoEventIndicated
         },
-
         //arrow RIGHT:
         if keys[2].is_low().unwrap() {
             Keyboard::RightArrow
         } else {
             Keyboard::NoEventIndicated
-        }
+        },
     ]
 }
 

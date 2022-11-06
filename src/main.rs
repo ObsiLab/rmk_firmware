@@ -6,29 +6,31 @@
 
 // ---- use : ----
 
+use panic_halt as _;
+
 // usbd hid
 use usbd_human_interface_device::page::Keyboard;
 //use usbd_human_interface_device::device::keyboard::{KeyboardLedsReport, NKROBootKeyboardInterface};
-use usbd_human_interface_device::device::keyboard::NKROBootKeyboardInterface;
-use usbd_human_interface_device::prelude::*;
-use usb_device::class_prelude::*;
-use usb_device::prelude::*;
 use embedded_hal::digital::v2::*;
 use embedded_hal::prelude::*;
 use embedded_time::duration::Milliseconds;
+use usb_device::class_prelude::*;
+use usb_device::prelude::*;
+use usbd_human_interface_device::device::keyboard::NKROBootKeyboardInterface;
+use usbd_human_interface_device::prelude::*;
 //? use embedded_time::rate::Hertz;
 use core::convert::Infallible;
-use rp2040_hal as hal;
 use hal::pac;
+use rp2040_hal as hal;
 //?use hal::Clock;
 use cortex_m_rt::entry;
 
 const XTAL_FREQ_HZ: u32 = 12_000_000u32;
 
 // ? :
+use embedded_time::clock::Error;
 use embedded_time::duration::Fraction;
 use embedded_time::Instant;
-use embedded_time::clock::Error;
 pub const SCALING_FACTOR: Fraction = Fraction::new(1, 1_000_000u32);
 use crate::hal::Timer;
 // ? use hal::Timer;
@@ -50,7 +52,6 @@ impl<'a> embedded_time::clock::Clock for TimerClock<'a> {
         Ok(Instant::new(self.timer.get_counter_low()))
     }
 }
-
 
 // ---------------
 /*
@@ -141,7 +142,6 @@ fn main() -> ! {
 }
 */
 
-
 /*
 
 ===========================  TEST 2 :  ================================
@@ -149,7 +149,7 @@ fn main() -> ! {
 */
 
 // ? :
-const nbkeys: usize = 3; // ! number of keys on the keyboard (80 ?), get from keys json or toml ?
+const NBKEYS: usize = 3; // ! number of keys on the keyboard (80 ?), get from keys json or toml ?
 
 ///main function test 2
 #[entry]
@@ -206,27 +206,26 @@ fn main() -> ! {
     let mut led_pin = pins.gpio13.into_push_pull_output(); // ! check pin
     led_pin.set_low().ok();
 
-    let keys: &[&dyn InputPin<Error = core::convert::Infallible>] = &[ // ! check pins, length must be == nbkeys, maybe autogenerate ?
+    let keys: &[&dyn InputPin<Error = core::convert::Infallible>] = &[
+        // ! check pins, length must be == nbkeys, maybe autogenerate ?
         &pins.gpio1.into_pull_up_input(),
         &pins.gpio2.into_pull_up_input(),
-        &pins.gpio3.into_pull_up_input()
-        //* etc
+        &pins.gpio3.into_pull_up_input(), //* etc
     ];
 
     let reset_button = pins.gpio0.into_pull_up_input(); // ! check pin
 
     let mut input_count_down = timer.count_down();
-    input_count_down.start(Milliseconds(1));            // ! check and test 10ms ?
+    input_count_down.start(Milliseconds(1)); // ! check and test 10ms ?
 
     let mut tick_count_down = timer.count_down();
-    tick_count_down.start(Milliseconds(1));             // ! check ms
+    tick_count_down.start(Milliseconds(1)); // ! check ms
 
     loop {
         // ! check
         if reset_button.is_low().unwrap() {
             hal::rom_data::reset_to_usb_boot(0x1 << 13, 0x0);
         }
-
 
         //Poll the keys every millisecond
         if input_count_down.wait().is_ok() {
@@ -253,7 +252,8 @@ fn main() -> ! {
         }
 
         if usb_dev.poll(&mut [&mut keyboard]) {
-            match keyboard.interface().read_report() { // check if caps lock, etc, is on
+            match keyboard.interface().read_report() {
+                // check if caps lock, etc, is on
                 Err(UsbError::WouldBlock) => {
                     // blank
                 }
@@ -268,13 +268,12 @@ fn main() -> ! {
 
         // ? :
         log::logger().flush();
-
     }
-
 }
 
 ///key_press function, sends key that is pressed
-fn key_press(keys: &[&dyn InputPin<Error = Infallible>]) -> [Keyboard; nbkeys] { // ! put keys in a json, toml or something
+fn key_press(keys: &[&dyn InputPin<Error = Infallible>]) -> [Keyboard; NBKEYS] {
+    // ! put keys in a json, toml or something
     [
         //arrow UP:
         if keys[0].is_low().unwrap() {
@@ -282,23 +281,20 @@ fn key_press(keys: &[&dyn InputPin<Error = Infallible>]) -> [Keyboard; nbkeys] {
         } else {
             Keyboard::NoEventIndicated
         },
-
         //arrow LEFT:
         if keys[1].is_low().unwrap() {
             Keyboard::LeftArrow
         } else {
             Keyboard::NoEventIndicated
         },
-
         //arrow RIGHT:
         if keys[2].is_low().unwrap() {
             Keyboard::RightArrow
         } else {
             Keyboard::NoEventIndicated
-        }
+        },
     ]
 }
-
 
 /*
 
