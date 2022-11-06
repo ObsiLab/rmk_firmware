@@ -21,7 +21,7 @@ Originally made for the [Quanta keyboard](https://github.com/ObsiLab/Quanta).
 </details>
 
 # 📖 Docs
-https://obsilab.github.io/rmk_docs/
+https://rmk.obsilab.com
 
 ## ▶️ Getting started
 ### _yes_ :
