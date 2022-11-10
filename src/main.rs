@@ -207,7 +207,7 @@ fn main() -> ! {
     led_pin.set_low().ok();
 
     let keys: &[&dyn InputPin<Error = core::convert::Infallible>] = &[
-        // ! check pins, length must be == nbkeys, maybe autogenerate ?
+        // ! check pins, length must be == NBKEYS, maybe autogenerate ?
         &pins.gpio1.into_pull_up_input(),
         &pins.gpio2.into_pull_up_input(),
         &pins.gpio3.into_pull_up_input(), //* etc

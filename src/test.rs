@@ -50,7 +50,7 @@ impl<'a> embedded_time::clock::Clock for TimerClock<'a> {
 }
 // ?? -----
 
-const nbkeys: usize = 3;
+const NBKEYS: usize = 3;
 const XTAL_FREQ_HZ: u32 = 12_000_000u32;
 
 #[entry]
@@ -103,7 +103,7 @@ fn main() -> ! {
         .build();
 
     let keys: &[&dyn InputPin<Error = core::convert::Infallible>] = &[
-        // ! check pins, length must be == nbkeys, maybe autogenerate ?
+        // ! check pins, length must be == NBKEYS, maybe autogenerate ?
         &pins.gpio1.into_pull_up_input(),
         &pins.gpio2.into_pull_up_input(),
         &pins.gpio3.into_pull_up_input(), //* etc
@@ -144,7 +144,7 @@ fn main() -> ! {
     }
 }
 
-fn key_press(keys: &[&dyn InputPin<Error = Infallible>]) -> [Keyboard; nbkeys] {
+fn key_press(keys: &[&dyn InputPin<Error = Infallible>]) -> [Keyboard; NBKEYS] {
     // ! put keys in a json, toml or something
     [
         //arrow UP:
