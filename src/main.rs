@@ -1,8 +1,20 @@
 // main.rs file
 // RMK_firmware
+// @link https://github.com/ObsiLab/rmk_firmware
+// Created by Lucas Placentino / 0bsilab
 
-#![no_std] // don't link the Rust standard librar
-#![no_main] // see #[entry] below, from cortex_m_rt::entry
+#![no_std]
+// don't link the Rust standard library
+
+#![no_main]
+// see #[entry] below, from cortex_m_rt::entry
+
+// ---- const : ----
+
+const XTAL_FREQ_HZ: u32 = 12_000_000u32; // RPi Pico/RP2040 crystal freq
+// needed? :
+const NBKEYS: usize = 3; // ! number of keys on the keyboard (80 ?), automatically get from keymap json or toml or other?
+
 
 // ---- use : ----
 
@@ -24,8 +36,6 @@ use hal::pac;
 use rp2040_hal as hal;
 //?use hal::Clock;
 use cortex_m_rt::entry;
-
-const XTAL_FREQ_HZ: u32 = 12_000_000u32;
 
 // ? :
 use embedded_time::clock::Error;
@@ -148,8 +158,6 @@ fn main() -> ! {
 
 */
 
-// ? :
-const NBKEYS: usize = 3; // ! number of keys on the keyboard (80 ?), get from keys json or toml ?
 
 ///main function test 2
 #[entry]
@@ -199,11 +207,12 @@ fn main() -> ! {
         .manufacturer("0bsilab")
         .product("Quanta Keyboard")
         .serial_number("TESTv1")
+        //.serial_number("MYVERYOWNQUANTAKEYBOARD")
         .supports_remote_wakeup(false) //? should test this
         .max_packet_size_0(8)
         .build();
 
-    let mut led_pin = pins.gpio13.into_push_pull_output(); // ! check pin
+    let mut led_pin = pins.gpio13.into_push_pull_output(); // ! check pin // used for caps lock led
     led_pin.set_low().ok();
 
     let keys: &[&dyn InputPin<Error = core::convert::Infallible>] = &[
@@ -266,10 +275,14 @@ fn main() -> ! {
             }
         }
 
-        // ? :
+        // needed? :
         log::logger().flush();
     }
 }
+
+
+//! TODO ---------- create a Key Struct and implement the key_press fn below for it ----------
+//! TODO create a Key from Struct for each key that is in the keymap JSON/TOML/other
 
 ///key_press function, sends key that is pressed
 fn key_press(keys: &[&dyn InputPin<Error = Infallible>]) -> [Keyboard; NBKEYS] {
