@@ -36,7 +36,7 @@ WIP
 - [List of contributors](../../graphs/contributors)
 
 ## 🌟 Acknowledgements
-#### 💡 Inspired by **QMK** and **KMK**.
+#### 💡 Inspired by [**QMK**](https://github.com/qmk/qmk_firmware) and [**KMK**](https://github.com/KMKfw/kmk_firmware).
 
 #### 🧱 Based off of:
 - https://github.com/Innectic/rmk
@@ -44,6 +44,7 @@ WIP
 - https://github.com/dlkj/usbd-human-interface-device
 - https://github.com/TeXitoi/keyberon
 - https://github.com/camrbuss/pinci
+- https://github.com/ChrisChrisLoLo/keezyboost40/tree/master/firmware/keezus
 
 ## ®️ License
 Licensed under an [**MIT License**](LICENSE)
