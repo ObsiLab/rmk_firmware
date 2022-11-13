@@ -1,19 +1,21 @@
 <img align="left" height="120" src="https://user-images.githubusercontent.com/23436953/178232652-e7b1504c-0425-490a-ab8c-12a58e288097.png">
 
 # RMK - a Rust Keyboard Firmware ⌨️
+Originally made for the [Quanta keyboard](https://github.com/ObsiLab/Quanta).
 ## _**----- 🏗️ THIS IS A WORK IN PROGRESS 🚧 -----**_  
 
 <details>
   <summary><h2>Table Of Contents 📑</h2></summary>
  
 >   - [📖 Docs](#-docs)
->     - [Getting started](#getting-started)
->       - [yes](#yes-)
+>     - [▶️ Getting started](#%EF%B8%8F-getting-started)
+>       - [_yes_](#yes-)
 >   - [🔡 Details](#-details)
 >     - [📝 Authors and Contributors](#-authors-and-contributors)
 >       - [Author](#author-)
 >       - [Contributors](#contributors-)
 >     - [🌟 Acknowledgements](#-acknowledgements)
+>     - [🧑‍🤝‍🧑 Contributing](#-contributing)
 >     - [®️ License](#%EF%B8%8F-license)
  
 </details>
@@ -21,9 +23,9 @@
 # 📖 Docs
 https://rmk.obsilab.com
 
-## Getting started
-### yes :
-WIP
+## ▶️ Getting started
+### _yes_ :
+_WIP_
 
 -----------------
 
@@ -45,6 +47,9 @@ WIP
 - https://github.com/TeXitoi/keyberon
 - https://github.com/camrbuss/pinci
 - https://github.com/ChrisChrisLoLo/keezyboost40/tree/master/firmware/keezus
+
+## 🧑‍🤝‍🧑 Contributing
+_[...](CONTRIBUTING.md)_
 
 ## ®️ License
 Licensed under an [**MIT License**](LICENSE)

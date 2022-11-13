@@ -14,7 +14,7 @@ keywords = ["keyboard","firmware","qmk","rmk","kmk"]
 categories = ["embedded","hardware-support"] # [...,"no-std"] ?
 
 # prevents from accidentily publishing to crates.io :
-publish = false 
+publish = false
 # ! REMOVE IF PUBLISHING TO crates.io
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -22,9 +22,12 @@ publish = false
 # [badges] # used ?
 # maintenance = ["experimental"] # used ?
 
-[dependencies] 
+[dependencies]
 
 log = "0.4"
+
+# v1 test
+usbd-human-interface-device = "0.2.1"
 
 # ?
 cortex-m = "0.7.3"
@@ -53,6 +56,9 @@ usbd-hid = "0.5.0"
 rp2040-hal = { version="0.4.0", features=["rt"] }
 rp2040-boot2 = "0.2.0"
 
+
+#[dev-dependencies]
+# etc
 
 # [profile.dev] # ?
 # lto = true
