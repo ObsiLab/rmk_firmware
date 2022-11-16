@@ -38,38 +38,41 @@ jobs:
     - name: Checkout Repository on PR on main branch
       if: github.event_name == 'pull_request'
       uses: actions/checkout@v3
+    #  with:
+    #    ref: ${{ github.event.pull_request.head.sha }}
     - name: Checkout Repository on push
       if: github.event_name == 'push'
       uses: actions/checkout@v3
       with:
         ref: ${{ github.ref }}
-    - uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable
-          target: ${{ matrix.target }}
-          override: true
-          components: rustfmt, clippy
+    - name: Setup Rust toolchain
+      uses: actions-rs/toolchain@v1
+      with:
+        profile: minimal
+        toolchain: stable
+        target: ${{ matrix.target }}
+        override: true
+        components: rustfmt, clippy
     - name: cargo fmt
       uses: actions-rs/cargo@v1
-        with:
-          command: fmt
-          args: --all -- --check
+      with:
+        command: fmt
+        args: --all -- --check
     - name: cargo clippy
       uses: actions-rs/cargo@v1
-        with:
-          command: clippy
-          args: -- -D warnings
+      with:
+        command: clippy
+        args: -- -D warnings
     - name: cargo test
       uses: actions-rs/cargo@v1
-        with:
-          command: test
-    #      args: --all
+      with:
+        command: test
+    #    args: --all
     - name: cargo build
       uses: actions-rs/cargo@v1
-        with:
-          command: build
-          args: ${{ matrix.variant }} --target=${{ matrix.target }}
+      with:
+        command: build
+        args: ${{ matrix.variant }} --target=${{ matrix.target }}
     #- name: cargo build
     #  run: cargo build ${{ matrix.variant }} --target=${{ matrix.target }}
 
