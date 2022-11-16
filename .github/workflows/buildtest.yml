@@ -70,7 +70,7 @@ jobs:
       continue-on-error: true
       with:
         command: test
-        args: --no-fail-fast --bin test
+        args: --no-fail-fast --all
     - name: cargo build
       uses: actions-rs/cargo@v1
       with:
