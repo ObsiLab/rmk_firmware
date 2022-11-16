@@ -55,6 +55,7 @@ jobs:
         components: rustfmt, clippy
     - name: cargo fmt
       uses: actions-rs/cargo@v1
+      continue-on-error: true
       with:
         command: fmt
         args: --all -- --check
