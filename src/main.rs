@@ -281,8 +281,8 @@ fn main() -> ! {
 }
 
 
-//! TODO ---------- create a Key Struct and implement the key_press fn below for it ----------
-//! TODO create a Key from Struct for each key that is in the keymap JSON/TOML/other
+// ! TODO ---------- create a Key Struct and implement the key_press fn below for it ----------
+// ! TODO create a Key from Struct for each key that is in the keymap JSON/TOML/other
 
 ///key_press function, sends key that is pressed
 fn key_press(keys: &[&dyn InputPin<Error = Infallible>]) -> [Keyboard; NBKEYS] {

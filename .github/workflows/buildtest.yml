@@ -1,0 +1,81 @@
+name: Build-Test
+
+on:
+  push:
+    branches-ignore:
+      - 'main'
+  pull_request:
+    branches:
+      - 'main'
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Build Test
+
+    strategy:
+      fail-fast: false
+      matrix:
+        variant:
+          - "" # debug
+          - "--release"
+        target: 
+          - thumbv6m-none-eabi
+    #      - thumbv7m-none-eabi
+    #      - thumbv7em-none-eabi
+    #      - thumbv7em-none-eabihf
+    #    platform: [
+    #      ubuntu-latest,
+    #      macos-latest,
+    #      windows-latest
+    #    ]
+
+    runs-on: ubuntu-latest
+    #runs-on: ${{ matrix.platform }}
+    timeout-minutes: 15
+
+    steps:
+    - name: Checkout Repository on PR on main branch
+      if: github.event_name == 'pull_request'
+      uses: actions/checkout@v3
+    #  with:
+    #    ref: ${{ github.event.pull_request.head.sha }}
+    - name: Checkout Repository on push
+      if: github.event_name == 'push'
+      uses: actions/checkout@v3
+      with:
+        ref: ${{ github.ref }}
+    - name: Setup Rust toolchain
+      uses: actions-rs/toolchain@v1
+      with:
+        profile: minimal
+        toolchain: stable
+        target: ${{ matrix.target }}
+        override: true
+        components: rustfmt, clippy
+    - name: cargo fmt
+      uses: actions-rs/cargo@v1
+      continue-on-error: true
+      with:
+        command: fmt
+        args: --all -- --check
+    - name: cargo clippy
+      uses: actions-rs/cargo@v1
+      continue-on-error: true
+      with:
+        command: clippy
+        args: -- -D warnings
+    - name: cargo test
+      uses: actions-rs/cargo@v1
+      continue-on-error: true
+      with:
+        command: test
+        args: --no-fail-fast --all
+    - name: cargo build
+      uses: actions-rs/cargo@v1
+      with:
+        command: build
+        args: ${{ matrix.variant }} --target=${{ matrix.target }}
+    #- name: cargo build
+    #  run: cargo build ${{ matrix.variant }} --target=${{ matrix.target }}
+

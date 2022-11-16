@@ -4,7 +4,8 @@
 
 */
 
-#![no_std] // don't link the Rust standard librar
+#![no_std] // don't link the Rust standard library
+// #![cfg_attr(not(test), no_std)] // only link the Rust standard library when testing
 #![no_main] // see #[entry] below, from cortex_m_rt::entry
 
 use core::convert::Infallible;
