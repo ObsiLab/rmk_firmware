@@ -7,28 +7,28 @@ on:
   pull_request:
     branches:
       - 'main'
+  workflow_dispatch:
 
 jobs:
   test:
     name: Build Test
 
-    #strategy:
-    #  fail-fast: false
+    strategy:
+      fail-fast: false
       matrix:
-    #    platform: [
-    #      ubuntu-latest,
-    #      macos-latest,
-    #      windows-latest
-    #    ]
-        variant: [
-          "",           # debug
-          "--release"
-        ]
+        variant:
+          - "" # debug
+          - "--release"
         target: 
           - thumbv6m-none-eabi
     #      - thumbv7m-none-eabi
     #      - thumbv7em-none-eabi
     #      - thumbv7em-none-eabihf
+    #    platform: [
+    #      ubuntu-latest,
+    #      macos-latest,
+    #      windows-latest
+    #    ]
 
     runs-on: ubuntu-latest
     #runs-on: ${{ matrix.platform }}
