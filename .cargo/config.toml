@@ -59,4 +59,10 @@ target = "thumbv6m-none-eabi"        # Cortex-M0 and Cortex-M0+
 # target = "thumbv8m.main-none-eabi"   # Cortex-M33 (no FPU)
 # target = "thumbv8m.main-none-eabihf" # Cortex-M33 (with FPU)
 
+# compiler caching tool for improved Rust build times
+# in ~/.cargo/config.toml
+rustc-wrapper = "sccache"
+# around 2x faster Rust build times
+# see https://twitter.com/0atman/status/1590118756226805762
+# https://github.com/mozilla/sccache
 
