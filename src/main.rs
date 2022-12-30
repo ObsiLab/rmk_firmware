@@ -5,16 +5,14 @@
 
 #![no_std]
 // don't link the Rust standard library
-
 #![no_main]
 // see #[entry] below, from cortex_m_rt::entry
 
 // ---- const : ----
 
 const XTAL_FREQ_HZ: u32 = 12_000_000u32; // RPi Pico/RP2040 crystal freq
-// needed? :
+                                         // needed? :
 const NBKEYS: usize = 3; // ! number of keys on the keyboard (80 ?), automatically get from keymap json or toml or other?
-
 
 // ---- use : ----
 
@@ -158,7 +156,6 @@ fn main() -> ! {
 
 */
 
-
 ///main function test 2
 #[entry]
 fn main() -> ! {
@@ -279,7 +276,6 @@ fn main() -> ! {
         log::logger().flush();
     }
 }
-
 
 // ! TODO ---------- create a Key Struct and implement the key_press fn below for it ----------
 // ! TODO create a Key from Struct for each key that is in the keymap JSON/TOML/other
