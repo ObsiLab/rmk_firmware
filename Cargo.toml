@@ -28,6 +28,7 @@ log = "0.4"
 
 # v1 test
 usbd-human-interface-device = "0.2.1"
+# or usbd-hid ?
 
 # ?
 cortex-m = "0.7.3"
@@ -46,6 +47,7 @@ panic-probe = { version = "0.3.0", features = ["print-defmt"] }
 usb-device= "0.2.8"
 usbd-serial = "0.1.1"
 usbd-hid = "0.5.0"
+# or usbd-human-interface-device ?
 
 
 # You can use any BSP. Uncomment this to use for example :
@@ -53,9 +55,9 @@ usbd-hid = "0.5.0"
 # sparkfun-pro-micro-rp2040 = "0.2.0"
 
 # If you're not going to use a Board Support Package you'll need these:
-rp2040-hal = { version="0.4.0", features=["rt"] }
-rp2040-boot2 = "0.2.0"
-
+#rp2040-hal = { version="0.4.0", features=["rt"] }
+#rp2040-boot2 = "0.2.0"
+# prefer to use only embedded-hal?
 
 [dev-dependencies]
 color-eyre = "0.6.2" # colored error messages
