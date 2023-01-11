@@ -62,15 +62,20 @@ usbd-hid = "0.5.0"
 [dev-dependencies]
 color-eyre = "0.6.2" # colored error messages
 
-# [profile.dev] # ?
+# [profile.dev]
 # lto = true
 # incremental = false
 # opt-level = "z"
 # debug = true
+#? panic = "abort" # avoid needing to define the unstable eh_personality lang item
 
-# [profile.release] # ?
-# lto = true
+# [profile.release]
+# strip = true # Strip symbols from binary
+# opt-level = "z" # "z" ("s"??) optimize for binary size, default optimizes for runtime speed
+# lto = true # enable link time optimization
+# codegen-units = 1 # maximize size reduction optimizations at the expense of build time
 # incremental = false
+#? panic = "abort"
 
 # [features]
 # default = ["boot2"]
