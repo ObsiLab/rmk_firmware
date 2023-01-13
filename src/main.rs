@@ -157,6 +157,12 @@ fn main() -> ! {
 
 */
 
+// * test
+#[cfg(rp2040)]
+use crate::mcu::rp2040::*;
+//#[cfg_attr(predicate, attr)]
+pub mod mcu;
+
 const USBVID: u16 = 0x1209;
 const USBPID: u16 = 0x0001;
 // ! need to get PID from pid.codes (VID 0x1209)
@@ -164,6 +170,10 @@ const USBPID: u16 = 0x0001;
 ///main function test 2
 #[entry]
 fn main() -> ! {
+    // * test
+    #[cfg(rp2040)]
+    let test_mcu = mcu::rp2040::RP2040::new("RP2040", 8);
+
     let mut pac = pac::Peripherals::take().unwrap();
 
     let mut watchdog = hal::Watchdog::new(pac.WATCHDOG);
