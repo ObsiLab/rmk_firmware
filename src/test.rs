@@ -4,17 +4,18 @@
 
 */
 
-#![no_std] // don't link the Rust standard library
+//?#![no_std] // don't link the Rust standard library
 // #![cfg_attr(not(test), no_std)] // only link the Rust standard library when testing
 #![no_main] // see #[entry] below, from cortex_m_rt::entry
 
 use core::convert::Infallible;
 use cortex_m_rt::entry;
+use embedded_hal as hal; // rather than rp2040_hal ?
 use embedded_hal::digital::v2::*;
 use embedded_hal::prelude::*;
 use embedded_time::duration::Milliseconds;
 use hal::pac;
-use rp2040_hal as hal;
+//use rp2040_hal as hal; // prefer embedded_hal ?
 use usb_device::class_prelude::*;
 use usb_device::prelude::*;
 use usbd_human_interface_device::device::keyboard::{
@@ -28,8 +29,12 @@ use embedded_time::clock::Error;
 use embedded_time::duration::Fraction;
 use embedded_time::Instant;
 pub const SCALING_FACTOR: Fraction = Fraction::new(1, 1_000_000u32);
-use crate::hal::Timer;
+use crate::hal::Timer; // only with rp2040_hal ?
 // ? use hal::Timer;
+
+const USBVID: u16 = 0x1209;
+const USBPID: u16 = 0x0001;
+// ! need to get PID from pid.codes (VID 0x1209)
 
 pub struct TimerClock<'a> {
     timer: &'a Timer,
@@ -97,7 +102,7 @@ fn main() -> ! {
         .add_interface(NKROBootKeyboardInterface::default_config(&clock))
         .build(&usb_alloc);
 
-    let mut usb_dev = UsbDeviceBuilder::new(&usb_alloc, UsbVidPid(0x1209, 0x0001))
+    let mut usb_dev = UsbDeviceBuilder::new(&usb_alloc, UsbVidPid(USBVID, USBPID))
         .manufacturer("usbd-human-interface-device")
         .product("NKRO Keyboard")
         .serial_number("TEST")

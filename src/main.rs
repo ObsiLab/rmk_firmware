@@ -1,20 +1,18 @@
 // main.rs file
 // RMK_firmware
 // @link https://github.com/ObsiLab/rmk_firmware
-// Created by Lucas Placentino / 0bsilab
+// Created by Lucas Placentino - 0bsilab
 
 #![no_std]
 // don't link the Rust standard library
-
 #![no_main]
 // see #[entry] below, from cortex_m_rt::entry
 
 // ---- const : ----
 
 const XTAL_FREQ_HZ: u32 = 12_000_000u32; // RPi Pico/RP2040 crystal freq
-// needed? :
+                                         // needed? :
 const NBKEYS: usize = 3; // ! number of keys on the keyboard (80 ?), automatically get from keymap json or toml or other?
-
 
 // ---- use : ----
 
@@ -23,6 +21,7 @@ use panic_halt as _;
 // usbd hid
 use usbd_human_interface_device::page::Keyboard;
 //use usbd_human_interface_device::device::keyboard::{KeyboardLedsReport, NKROBootKeyboardInterface};
+use embedded_hal as hal;
 use embedded_hal::digital::v2::*;
 use embedded_hal::prelude::*;
 use embedded_time::duration::Milliseconds;
@@ -33,7 +32,7 @@ use usbd_human_interface_device::prelude::*;
 //? use embedded_time::rate::Hertz;
 use core::convert::Infallible;
 use hal::pac;
-use rp2040_hal as hal;
+//use rp2040_hal as hal; // prefer embedded_hal ?
 //?use hal::Clock;
 use cortex_m_rt::entry;
 
@@ -42,8 +41,8 @@ use embedded_time::clock::Error;
 use embedded_time::duration::Fraction;
 use embedded_time::Instant;
 pub const SCALING_FACTOR: Fraction = Fraction::new(1, 1_000_000u32);
-use crate::hal::Timer;
-// ? use hal::Timer;
+use crate::hal::Timer; // only with rp2040_hal ?
+                       // ? use hal::Timer;
 pub struct TimerClock<'a> {
     timer: &'a Timer,
 }
@@ -158,10 +157,23 @@ fn main() -> ! {
 
 */
 
+// * test
+#[cfg(rp2040)]
+use crate::mcu::rp2040::*;
+//#[cfg_attr(predicate, attr)]
+pub mod mcu;
+
+const USBVID: u16 = 0x1209;
+const USBPID: u16 = 0x0001;
+// ! need to get PID from pid.codes (VID 0x1209)
 
 ///main function test 2
 #[entry]
 fn main() -> ! {
+    // * test
+    #[cfg(rp2040)]
+    let test_mcu = mcu::rp2040::RP2040::new("RP2040", 8);
+
     let mut pac = pac::Peripherals::take().unwrap();
 
     let mut watchdog = hal::Watchdog::new(pac.WATCHDOG);
@@ -203,7 +215,7 @@ fn main() -> ! {
         )
         .build(&usb_bus);
 
-    let mut usb_dev = UsbDeviceBuilder::new(&usb_bus, UsbVidPid(0x1209, 0x0001)) // ! need to get PID from pid.codes (VID 0x1209)
+    let mut usb_dev = UsbDeviceBuilder::new(&usb_bus, UsbVidPid(USBVID, USBPID)) // ! need to get PID from pid.codes (VID 0x1209)
         .manufacturer("0bsilab")
         .product("Quanta Keyboard")
         .serial_number("TESTv1")
@@ -279,7 +291,6 @@ fn main() -> ! {
         log::logger().flush();
     }
 }
-
 
 // ! TODO ---------- create a Key Struct and implement the key_press fn below for it ----------
 // ! TODO create a Key from Struct for each key that is in the keymap JSON/TOML/other

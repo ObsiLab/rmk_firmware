@@ -27,6 +27,29 @@ https://rmk.obsilab.com
 ### _yes_ :
 _WIP_
 
+### Keymap
+Make a keymap.json file _manually_, based on [example_keymap.json](example_keymap.json).
+```json
+{
+  "name": "Example Keymap",
+  "version": 1.0,
+  "author": "RMK",
+  "layers": 2,
+  "max_rows": 3,
+  "max_columns": 3,
+  "description": "Experimental. An example keymap for RMK firmware, 3x3 key matrix with two layers.",
+	"layer1": {
+		"row1": ["KEY_Q", "KEY_W", "KEY_E"],
+		"row2": ["KEY_A", "KEY_S", "KEY_D"],
+		"row3": ["KEY_null", "KEY_null", "KEY_null"]
+	},
+	"layer2": {
+		"row1": ["KEY_TRNS", "KEY_T", "KEY_MEDIA_PLAY_PAUSE"]
+	}
+}
+```  
+Or use **[RMK GUI Configurator (RGC)](https://github.com/ObsiLab/RGC)** (_WIP_).
+
 -----------------
 
 # 🔡 Details
